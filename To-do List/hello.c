@@ -42,13 +42,18 @@ void newTask(char descrip[50]) {
     total++;
 }
 
+void editTask(char newDescrip[50], int index) {
+    struct Task t = tasks[index-1];
+    strcpy(t.description, newDescrip);
+    tasks[index-1] = t;
+}
 
 int main() {
     int option = -1; 
 
     while (option != 0){
         system("clear");
-        printf("0 - Exit\n1 - Show tasks\n2 - New task\n3 - Edit task\n4 - Delete task\n\n");
+        printf("0 - Exit\n1 - Show tasks\n2 - New task\n3 - Change status\n4 - Edit task\n5 - Delete task\n\n");
         printf("--> ");
         scanf("%d", &option);
         if (option == 1){
@@ -72,9 +77,25 @@ int main() {
             getchar();
         }
         else if (option == 3) {
-            //EditTask();
         }
-        else if (option == 4){
+        else if (option == 4) {
+            char newDescrip[50];
+            int id;
+            system("clear");
+
+            printf("Write task id: \n--> ");
+            scanf("%d", &id);
+
+            printf("Write the new task name: \n--> ");
+            scanf(" %[^\n]", newDescrip);
+
+            editTask(newDescrip, id);
+
+            printf("\nSucess!!\nPress enter to go back to the menu...");
+            getchar();
+            getchar();
+        }
+        else if (option == 5){
             //DeleteTask();
         } 
     }
