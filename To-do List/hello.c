@@ -48,6 +48,17 @@ void editTask(char newDescrip[50], int index) {
     tasks[index-1] = t;
 }
 
+int changeStatus(int index) {
+    if (tasks[index-1].status == 0) {
+        tasks[index-1].status = 1;
+        return 1;
+    }
+    else{
+        tasks[index-1].id = 0;
+        return 0;
+    }
+}
+
 int main() {
     int option = -1; 
 
@@ -77,10 +88,22 @@ int main() {
             getchar();
         }
         else if (option == 3) {
+            int id;
+            system("clear");
+
+            printf("Write task id: \n--> ");
+            scanf("%d", &id);
+
+            int status = changeStatus(id);
+
+            printf("\nStatus changed to %s!!\nPress enter to go back to the menu...", status ? "Done" : "In progress");
+            getchar();
+            getchar();
         }
         else if (option == 4) {
-            char newDescrip[50];
             int id;
+            char newDescrip[50];
+
             system("clear");
 
             printf("Write task id: \n--> ");
