@@ -59,6 +59,21 @@ int changeStatus(int index) {
     }
 }
 
+void deleteTask(int index) {
+    int i = index - 1;
+
+    for ( int j = i; j < total - 1; j++) {
+        tasks[j] = tasks[j + 1];
+    }
+
+    total--;
+
+    for (int i = 0; i < total; i++) {
+        tasks[i].id = i + 1;
+    }
+
+}
+
 int main() {
     int option = -1; 
 
@@ -119,7 +134,18 @@ int main() {
             getchar();
         }
         else if (option == 5){
-            //DeleteTask();
+            int id;
+
+            system("clear");
+
+            printf("Write task id: \n--> ");
+            scanf("%d", &id);
+
+            deleteTask(id);
+
+            printf("\nSucess!!\nPress enter to go back to the menu...");
+            getchar();
+            getchar();
         } 
     }
     return 0;
