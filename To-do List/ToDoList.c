@@ -45,9 +45,6 @@ int readLine(char string[], int length){
     return SUCCESS;
 }
 
-int readInt(char string[]){
-
-}
 
 void showTask(struct Task tasks[], int total) {
     if (total == 0) {
