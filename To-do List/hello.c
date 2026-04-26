@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Erros codes
+
+#define SUCCESS 0
+#define ERROR_INVALID_POSITION 1
+#define ERROR_TOO_LONG 2
+
+
 struct Task
 {
     int id;
@@ -59,19 +66,24 @@ int changeStatus(int index) {
     }
 }
 
-void deleteTask(int index) {
-    int i = index - 1;
-
-    for ( int j = i; j < total - 1; j++) {
-        tasks[j] = tasks[j + 1];
+int deleteTask(int index) {
+    if (index <= 0 || index > total) {
+        return ERROR_INVALID_POSITION;
     }
-
-    total--;
-
-    for (int i = 0; i < total; i++) {
-        tasks[i].id = i + 1;
+    else {
+        int i = index - 1;
+    
+        for ( int j = i; j < total - 1; j++) {
+            tasks[j] = tasks[j + 1];
+        }
+    
+        total--;
+    
+        for (int i = 0; i < total; i++) {
+            tasks[i].id = i + 1;
+        }
+        return SUCCESS;
     }
-
 }
 
 int main() {
@@ -141,12 +153,22 @@ int main() {
             printf("Write task id: \n--> ");
             scanf("%d", &id);
 
-            deleteTask(id);
+            int status = deleteTask(id);
 
-            printf("\nSucess!!\nPress enter to go back to the menu...");
+            printf("\n%s\nPress enter to go back to the menu...", status ? "Id not found." : "Sucess!");
             getchar();
             getchar();
         } 
+        else if (option == 0){
+            printf("\nGood bye.\n");
+        }
+        else {
+            system("clear");
+            printf("Choice is not valid.");
+            printf("\nSucess!!\nPress enter to go back to the menu...");
+            getchar();
+            getchar();
+        }
     }
     return 0;
 }
