@@ -17,7 +17,7 @@
 
 struct Task
 {
-    int id;
+    int position;
     char description[MAX_DESCRIPTION_LENGTH];
     int status;
 };
@@ -55,7 +55,7 @@ void showTask(struct Task tasks[], int total) {
     }
     else{
         for (int i = 0; i < total; i++) {
-            printf("%d) %s - ", tasks[i].id, tasks[i].description);
+            printf("%d) %s - ", tasks[i].position, tasks[i].description);
             if (tasks[i].status == 1) {
                 printf("Done\n");
             }
@@ -69,7 +69,7 @@ void showTask(struct Task tasks[], int total) {
 void newTask(char descrip[MAX_DESCRIPTION_LENGTH]) {
     struct Task t;
 
-    t.id = total + 1;
+    t.position = total + 1;
     strcpy(t.description, descrip);
     t.status = 0;
 
@@ -112,7 +112,7 @@ int deleteTask(int index) {
     total--;
 
     for (int i = 0; i < total; i++) {
-        tasks[i].id = i + 1;
+        tasks[i].position = i + 1;
     }
     return SUCCESS;
 }
@@ -189,6 +189,7 @@ int main() {
             char newDescrip[MAX_DESCRIPTION_LENGTH];
             int statusErrorInput;
             int statusErrorEdit;
+            int pass;
 
             do {
                 system("clear");
@@ -200,17 +201,21 @@ int main() {
 
                 printf("Write the task name: \n--> ");
 
+                pass = 0;
+
                 statusErrorInput = readLine(newDescrip, MAX_DESCRIPTION_LENGTH);
 
                 if (statusErrorInput == ERROR_TOO_LONG){
+                    pass = 1;
                     printf("\nText too long. Maximum %d characters.\nPress enter to try again...", MAX_DESCRIPTION_LENGTH);
                     while (getchar() != '\n');
                 }
                 else if (statusErrorInput == ERROR_INPUT_EMPTY) {
+                    pass = 1;
                     printf("\nText is empty.\nPress enter to try again...");
                     while (getchar() != '\n');
                 }
-                else {
+                if (pass == 0) {
                     statusErrorEdit = editTask(newDescrip, id);
                     if (statusErrorEdit == ERROR_INVALID_POSITION){
                         printf("\nId not found.\nPress enter to try again...");
