@@ -2,6 +2,10 @@
 
 Projeto simples de lista de tarefas desenvolvido em C para praticar conceitos fundamentais da linguagem.
 
+## 🚧 Status
+
+Este projeto ainda está em desenvolvimento e será atualizado conforme avanço nos estudos em C.
+
 ## 💡 Funcionalidades
 
 - Adicionar nova tarefa  
